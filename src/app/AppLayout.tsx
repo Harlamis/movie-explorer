@@ -1,9 +1,13 @@
+import { Suspense } from "react";
 import { Outlet } from "react-router";
+import { PageLoader } from "./PageLoader";
 
 export const AppLayout = () => {
   return (
     <div>
-      <Outlet />
+      <Suspense fallback={<PageLoader />}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
