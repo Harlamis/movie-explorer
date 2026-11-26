@@ -1,4 +1,4 @@
-import { useThemeStore } from "./useThemeStore.ts";
+import { useThemeStore } from "./useThemeStore";
 
 import { useEffect } from "react";
 
