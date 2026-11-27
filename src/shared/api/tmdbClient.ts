@@ -10,6 +10,8 @@ if (!tmdbUrl || !tmdbApiKey)
     "No Api URL or Api Key detected, enter them in .env file and restart the project",
   );
 
+// AxiosInstance type and our custom HttpClient are covariant, so compiler will aslo treat tmdbClient as of HttpClient type
+// We will achieve Dependency inversion with this and won't leak implementation details in external slices
 export const tmdbClient = axios.create({
   baseURL: tmdbUrl,
   timeout: 10000,
