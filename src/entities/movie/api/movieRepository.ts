@@ -57,6 +57,11 @@ export const createMovieRepository = (
             page: params.page,
             sort_by: params.sortBy,
             with_genres: params.genreId,
+            // We also add minimum votes threshold so that no random 10-star movie with 1 vote will be above popular 10-star movies with a lot of votes
+            ...(params.sortBy === "vote_average.desc" ||
+            params.sortBy === "vote_average.asc"
+              ? { "vote_count.gte": 200 }
+              : {}),
           },
     });
     const [moviesResponse, genresMap] = await Promise.all([
@@ -65,10 +70,17 @@ export const createMovieRepository = (
     ]);
     const result = mapMoviesPageDtoToDomain(moviesResponse.data, genresMap);
     if (query && params.genreId) {
-        const genre = genresMap.get(params.genreId);
-        result.movies = genre
-          ? result.movies.filter((movie) => movie.genres.includes(genre))
-            : result.movies;
+      const genre = genresMap.get(params.genreId);
+      result.movies = genre
+        ? result.movies.filter((movie) => movie.genres.includes(genre))
+        : result.movies;
     }
+    return result;
+  };
+  return {
+    getGenres,
+    getMovies,
   };
 };
+
+export const movieRepository = createMovieRepository();
