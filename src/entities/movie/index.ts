@@ -8,3 +8,5 @@ export type {
   MovieSortBy,
   MoviesFilterParams,
 } from "./model/types";
+
+export { MovieCard } from "./ui/MovieCard";
