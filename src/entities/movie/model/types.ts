@@ -22,13 +22,17 @@ export interface MoviesPageResult {
 }
 
 // We use the same sorting query naming as the API itself so we won't have to map them in repository layer
-export type MovieSortBy =
-  | "popularity.desc"
-  | "vote_average.desc"
-  | "primary_release_date.desc"
-  | "popularity.asc"
-  | "vote_average.asc"
-  | "primary_release_date.asc";
+// We also make this as an array because we also need these values at runtime, and regular interface or union type would exist only during compilation
+export const MOVIE_SORT_OPTIONS = [
+  "popularity.desc",
+  "popularity.asc",
+  "vote_average.desc",
+  "vote_average.asc",
+  "primary_release_date.desc",
+  "primary_release_date.asc",
+] as const;
+
+export type MovieSortBy = (typeof MOVIE_SORT_OPTIONS)[number];
 
 export interface MoviesFilterParams {
   page: number;

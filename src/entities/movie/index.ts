@@ -1,6 +1,7 @@
 export { movieRepository } from "./api/movieRepository";
 export type { MovieRepository } from "./api/movieRepository";
 export { movieKeys, useGenresQuery, useMoviesQuery } from "./api/movieQueries";
+export { MOVIE_SORT_OPTIONS } from "./model/types";
 export type {
   Genre,
   Movie,
